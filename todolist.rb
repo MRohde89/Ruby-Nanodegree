@@ -1,6 +1,6 @@
 class TodoList
 
-    attr_accessor :title, :items, :current_list, :hash_tag, :current_index
+    attr_accessor :title, :items, :current_list, :hash_tag
 
     #attr_accessor :title
     def initialize(list_title)
@@ -8,7 +8,6 @@ class TodoList
     	@items = Array.new # starts empty! No items yet!
       @hash_tag[list_title] = []
       @current_list = list_title
-      @current_index = 0
     end
 
     def add_list(list_title)
@@ -39,50 +38,48 @@ class TodoList
       # Renaming Solution for hash keys from Stackoverflow: http://stackoverflow.com/questions/4137824/how-to-elegantly-rename-all-keys-in-a-hash-in-ruby
       self.hash_tag.keys.each { |k| self.hash_tag[replacement[k]] = self.hash_tag.delete(k) if replacement[k]}
       @current_list = new_title
-      @current_index = list.hash_tag.key.length -1 # because the changed part will be at the end of the array
+      #@current_index = list.hash_tag.key.length -1 # because the changed part will be at the end of the array
       return "Listname changed to #{new_title}"
     end
-####################
-##### NOT ADJUSTED TO MULTIPLE LISTS
-####################
 
     def add_item(new_item)
         item = Item.new(new_item)
-        @items.push(item)
+        self.hash_tag[@current_list].push(item)
     end
 
     def delete_item(index)
-      @items.delete_at(index)
+      self.hash_tag[@current_list].delete_at(index)
     end
 
     def item_completed(index)
-      @items[index].completed_status = "true"
+      self.hash_tag[@current_list][index].completed_status = "true"
     end
 
     def show(output_method = 0)
 
       if output_method == 1
       liste = Tempfile.new('show_temp')
-      liste.puts self.title.center(20, '*')
+      liste.puts @current_list.center(20, '*')
       liste.puts
-      self.items.each do |item|
-       liste.puts "#{item.description.ljust(60, ' -')} Status: #{item.completed_status}"
+      self.hash_tag[@current_list].each do |item|
+       liste.puts "#{item.description.ljust(60, ' -')} Finished: #{item.completed_status}"
       end
       liste.puts
       liste.close
       return IO.read liste
     else
-        puts self.title.center(20, '*')
+        puts @current_list.center(20, '*')
         puts
-        self.items.each do |item|
-         puts "#{item.description.ljust(60, ' -')} Status: #{item.completed_status}"
+        self.hash_tag[@current_list].each do |item|
+         puts "#{item.description.ljust(60, ' -')} Finished: #{item.completed_status}"
         end
         puts
       end
     end
 
+
     def completed?(index)
-      @items[index].completed_status
+      self.hash_tag[@current_list][index].completed_status
     end
 
 
@@ -91,10 +88,6 @@ class TodoList
       output.puts (self.show(1))
       output.close
       return "Output to file #{directory_and_file}"
-    end
-
-    def another_list(title)
-      #@todolists.push(self)
     end
 
 end
