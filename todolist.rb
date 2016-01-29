@@ -30,11 +30,36 @@ class TodoList
       puts
     end
 
+
+    def show(output_method = 0)
+
+      if output_method == 1
+      liste = Tempfile.new('show_temp')
+      liste.puts self.title.center(20, '*')
+      liste.puts
+      self.items.each do |item|
+       liste.puts "#{item.description.ljust(60, ' -')} Status: #{item.completed_status}"
+      end
+      liste.puts
+      liste.close
+      return IO.read liste
+    else
+        puts self.title.center(20, '*')
+        puts
+        self.items.each do |item|
+         puts "#{item.description.ljust(60, ' -')} Status: #{item.completed_status}"
+        end
+        puts
+      end
+    end
+
+
+
     def completed?(index)
       @items[index].completed_status
     end
 
-    def to_file(directory_and_file)
+    def to_file(directory_and_file = "report.txt")
       output = File.new(directory_and_file, 'w+')
       output.puts self.title.center(20, '*')
       output.puts
@@ -42,6 +67,13 @@ class TodoList
         output.puts "#{item.description.ljust(60, ' -')} Status: #{item.completed_status}"
       end
       output.puts
+      output.close
+      return "Output to file #{directory_and_file}, since no file name was specified"
+    end
+
+    def to_file(directory_and_file = "report.txt")
+      output = File.new("report.txt", 'w+')
+      output.puts (self.show(1))
       output.close
       return "Output to file #{directory_and_file}"
     end
