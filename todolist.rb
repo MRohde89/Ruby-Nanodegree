@@ -22,7 +22,6 @@ class TodoList
     end
 
     def show
-
       puts self.title.center(20, '*')
       puts
       self.items.each do |item|
@@ -31,10 +30,21 @@ class TodoList
       puts
     end
 
-    def completed?(item)
-      (@items.select {|item| item.description == item}).completed_status
+    def completed?(index)
+      @items[index].completed_status
     end
 
+    def to_file(directory_and_file)
+      output = File.new(directory_and_file, 'w+')
+      output.puts self.title.center(20, '*')
+      output.puts
+      self.items.each do |item|
+        output.puts "#{item.description.ljust(60, ' -')} Status: #{item.completed_status}"
+      end
+      output.puts
+      output.close
+      return "Output to file #{directory_and_file}"
+    end
 
 
 end
