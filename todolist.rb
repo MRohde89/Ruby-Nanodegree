@@ -165,4 +165,9 @@ class Item
     @completed_status = false
   end
 
+  def show_item(index)
+    return  "#{index}. Task: #{self.description.ljust(60, ' -')} Finished: #{self.completed_status}"
+  end
+
+
 end
