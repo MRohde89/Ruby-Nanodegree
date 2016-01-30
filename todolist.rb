@@ -1,10 +1,9 @@
-require "Tempfile"
+require "Tempfile" #used for the to_file method
 
 class TodoList
 
-    attr_accessor :title, :items, :current_list, :hash_tag
+    attr_accessor :items, :hash_tag, :current_list
 
-    #attr_accessor :title
     def initialize(list_title)
     	@hash_tag = Hash.new # starts empty Hash
     	@items = Array.new # starts empty! No items yet!
@@ -61,7 +60,7 @@ class TodoList
       return @current_list
     end
 
-    def change_to_list(list)
+    def change_list_to(list)
       if
       self.hash_tag.keys.include? list
       @current_list = list
@@ -114,6 +113,7 @@ class TodoList
       liste.close
       return IO.read liste
     else
+        puts
         puts @current_list.center(20, '*')
         puts
         self.hash_tag[@current_list].each_with_index do |item, index|
@@ -125,7 +125,7 @@ class TodoList
 
 
     def completed?(index)
-      self.hash_tag[@current_list][index].completed_status
+      self.hash_tag[@current_list][index].completed_status == true ? true : false
     end
 
 
