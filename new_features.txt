@@ -1,0 +1,12 @@
+There are a couple of new features for the TodoList class:
+
+The first and most important change is that the TodoList class now works with an hash which can consist out of multiple lists
+This also includes sometimes major changes in the existing methods.
+
+To name some new methods:
+
+.to_file: this method creates a text file from the current list
+.load_from_file: this method can load a file and adds it to the lists
+.delete_list: self explanatory
+.change_list_to: change to a given list
+.add_list: self explanatory
