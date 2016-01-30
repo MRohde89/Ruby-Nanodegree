@@ -1,3 +1,5 @@
+require "Tempfile"
+
 class TodoList
 
     attr_accessor :title, :items, :current_list, :hash_tag
@@ -12,8 +14,48 @@ class TodoList
 
     def add_list(list_title)
       @hash_tag[list_title] = []
-      return "List with Title #{list_title} has been created"
+      return "List with title #{list_title} has been created"
     end
+
+    def delete_list(list_title)
+      if @current_list == list_title
+        return "Can not delete current list. choose another list do delete #{list_title}"
+    elsif
+      self.hash_tag.keys.include? list_title
+      self.hash_tag.delete(list_title)
+      return "List #{list_title} has been deleted"
+    else
+      return "No such List #{list_title}"
+    end
+    end
+
+    def load_from_file(filename)
+      file = File.readlines(filename)
+      file.each_with_index do |line, index|
+        if index == 0
+          hash_tag = line.gsub("*", "").gsub("\n", "")
+          if self.hash_tag.keys.include? hash_tag
+            return "List can not be loaded because there is a list with name '#{hash_tag}' already"
+          else
+            add_list(hash_tag)
+            @current_list = hash_tag
+            puts "Current list is now #{hash_tag}"
+          end
+        elsif line == "\n"
+          next
+        else
+          item = line.split(";")
+          description = item[0].gsub(" -","").gsub("Task: ","")
+          status = item[1].gsub(" Finished: ", "").gsub("\n", "")
+          self.add_item(description)
+          status == "true" ? self.item_complete(index-2) : self.item_uncomplete(index-2)
+          # index-2 because line 0 is always the header followed by an "\n" in line 1; afterwards line 2 will be item 0
+      end
+    end
+
+    end
+
+
 
     def current_list
       return @current_list
@@ -51,8 +93,12 @@ class TodoList
       self.hash_tag[@current_list].delete_at(index)
     end
 
-    def item_completed(index)
+    def item_complete(index)
       self.hash_tag[@current_list][index].completed_status = "true"
+    end
+
+    def item_uncomplete(index)
+      self.hash_tag[@current_list][index].completed_status = "false"
     end
 
     def show(output_method = 0)
@@ -62,7 +108,7 @@ class TodoList
       liste.puts @current_list.center(20, '*')
       liste.puts
       self.hash_tag[@current_list].each do |item|
-       liste.puts "#{item.description.ljust(60, ' -')} Finished: #{item.completed_status}"
+       liste.puts "Task: #{item.description.ljust(60, ' -')}; Finished: #{item.completed_status}"
       end
       liste.puts
       liste.close
@@ -70,8 +116,8 @@ class TodoList
     else
         puts @current_list.center(20, '*')
         puts
-        self.hash_tag[@current_list].each do |item|
-         puts "#{item.description.ljust(60, ' -')} Finished: #{item.completed_status}"
+        self.hash_tag[@current_list].each_with_index do |item, index|
+         puts "#{index}. Task: #{item.description.ljust(60, ' -')} Finished: #{item.completed_status}"
         end
         puts
       end
