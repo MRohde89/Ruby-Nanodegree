@@ -1,0 +1,71 @@
+commit 5617787246964a95618cea2c49692504aa48bde9
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Sat Jan 30 23:17:02 2016 +0100
+
+    changed udacitask.rb to include some new methods. Version will be send to udacity
+
+commit a92ee92bab057da4688dd759a98ff50bfe371363
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Sat Jan 30 23:02:31 2016 +0100
+
+    added the .show_item method to the Item class, as required in the udacity rubric
+
+commit 318e52168936dcc4371ad6ce930527662fa5738f
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Sat Jan 30 22:32:20 2016 +0100
+
+    commented version + fixed static parameter in to_file (it was report.txt all the time)
+
+commit e9a864584940392b240559ac1caf503f122b7581
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Sat Jan 30 22:16:32 2016 +0100
+
+    Version 1.1, some adjustments in show and complete method now works with an ternary operator
+
+commit 3dba394b4338ee2a45a49687b7c4b5684f6af1df
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Sat Jan 30 21:58:19 2016 +0100
+
+    additional functions: load from existing list, uncomplete item, delete list; changed some minor typos and output of .show method
+
+commit 04f6dc0191294bd142100252f05e2877d0caaa03
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Fri Jan 29 20:41:46 2016 +0100
+
+    all used functions are now modified to function with multiple lists
+
+commit b894dd676e240ca9dedcd09141fdac14252782a4
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Fri Jan 29 20:21:15 2016 +0100
+
+    modified to have multiple Lists which is bound in a hash. There is still a lot to do, but many methods are already working fine. Modified now working methods: add_list, current_list, change_to_list, show_lists, change_name_to. The rest needs to be modified to work for multiple lists as well.
+
+commit f7a158f0144919f6eeb47032fef1a0398ba25232
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Fri Jan 29 12:33:34 2016 +0100
+
+    output tofile is working now by taking the output of the method show
+
+commit de4e2e2160f7477b90d7a1331a3d92924fa4c126
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Fri Jan 29 11:07:50 2016 +0100
+
+    output to file is working (not optimized yet)
+
+commit 03d4a1edde6825e8d5beca5bcc04fecb4e3fdf86
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Fri Jan 29 10:03:28 2016 +0100
+
+    udacitask starter tasks completed. No additional tasks yet
+
+commit 6b14dcff112a05fc4b692363be9f9c4e393d81ea
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Thu Jan 28 15:28:43 2016 +0100
+
+    worked through the udacity instructions
+
+commit d1de260d5e2c392024d4baa2485279a1af82502c
+Author: MRohde89 <rheinsberg1@gmx.net>
+Date:   Thu Jan 28 09:17:28 2016 +0100
+
+    initial upload
